@@ -1,0 +1,8 @@
+// @flow
+const INIT_ANSWERS: "INIT_ANSWERS" = "INIT_ANSWERS";
+const CHECK_WORD: "CHECK_WORD" = "CHECK_WORD";
+
+export default {
+	INIT_ANSWERS,
+	CHECK_WORD	
+}
