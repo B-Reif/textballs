@@ -1,37 +1,31 @@
 // @flow
-import type {
-	Action,
-	Letter,
-	Letters,
-	InertLetters,
-	ActiveLetters
-} from "../types";
+import type { Action, Letter, LettersSet } from "../types";
 import { PUSH_LETTER, POP_LETTER } from "../action-types";
 
 const defaultAction: Action = { type: null, payload: null };
 
-const initialState: Letters = {
+const initialState: LettersSet = {
 	inertLetters: [],
 	activeLetters: []
 };
 
 export default function letters(
-	state: Letters = initialState,
+	state: LettersSet = initialState,
 	action: Action = defaultAction
-): Letters {
+): LettersSet {
 	const { inertLetters, activeLetters } = state;
 	switch (action.type) {
 		// PUSH_LETTER moves the first instance of a given letter
 		// from the Inert array to the end of the Active array.
 		case PUSH_LETTER:
-			(action.payload: Letter);
-			const inertIndex = inertLetters.indexOf(action.payload);
+			const letter: Letter = action.payload;
+			const inertIndex = inertLetters.indexOf(letter);
 			return {
 				inertLetters: [
 					...inertLetters.slice(0, inertIndex),
 					...inertLetters.slice(inertIndex + 1)
 				],
-				activeLetters: activeLetters.concat([action.payload])
+				activeLetters: activeLetters.concat([letter])
 			};
 		// POP_LETTER moves the last letter of the Active array
 		// to the end of the Inert array.

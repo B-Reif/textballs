@@ -6,10 +6,10 @@ import actionTypes from "./action-types";
 // ============
 
 export type Letter = string;
-export type InertLetters = Array<Letter>;
-export type ActiveLetters = Array<Letter>;
 
-export type Letters = {
+type InertLetters = Array<Letter>;
+type ActiveLetters = Array<Letter>;
+export type LettersSet = {
 	inertLetters: InertLetters,
 	activeLetters: ActiveLetters
 };

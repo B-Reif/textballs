@@ -12,15 +12,12 @@ export default function words(
 ): WordFoundMap {
 	switch (action.type) {
 		case INIT_WORDS:
-			(action.payload: Array<Word>);
-			return action.payload.reduce(
-				(acc, word) => ({ ...acc, [word]: false }),
-				{}
-			);
+			const words: Array<Word> = action.payload;
+			return words.reduce((acc, word) => ({ ...acc, [word]: false }), {});
 		case CHECK_WORD:
-			(action.payload: Word);
-			if (!state.hasOwnProperty(action.payload)) return state;
-			return { ...state, [action.payload]: true };
+			const word: Word = action.payload;
+			if (!state.hasOwnProperty(word)) return state;
+			return { ...state, [word]: true };
 		default:
 			return state;
 	}

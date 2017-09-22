@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { createStore } from "redux";
+import rootReducer from "./reducers";
+import logo from "./logo.svg";
+import "./App.css";
+
+const store = createStore(rootReducer);
 
 class App extends Component {
   render() {
