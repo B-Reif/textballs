@@ -27,6 +27,7 @@ export type WordFoundMap = {
 type BaseAction<T, P> = { type: T, payload: P };
 
 type LetterAction =
+	| BaseAction<typeof actionTypes.INIT_LETTERS, Array<Letter>>
 	| BaseAction<typeof actionTypes.PUSH_LETTER, Letter>
 	| BaseAction<typeof actionTypes.POP_LETTER, Letter>;
 

@@ -1,6 +1,6 @@
 // @flow
 import type { Action, Letter, LettersSet } from "../types";
-import { PUSH_LETTER, POP_LETTER } from "../action-types";
+import { INIT_LETTERS, PUSH_LETTER, POP_LETTER } from "../action-types";
 
 const defaultAction: Action = { type: null, payload: null };
 
@@ -15,6 +15,13 @@ export default function letters(
 ): LettersSet {
 	const { inertLetters, activeLetters } = state;
 	switch (action.type) {
+		case INIT_LETTERS: {
+			const letters: Array<Letter> = action.payload;
+			return {
+				inertLetters: letters.slice(),
+				activeLetters: []
+			}
+		}
 		// PUSH_LETTER moves the first instance of a given letter
 		// from the Inert array to the end of the Active array.
 		case PUSH_LETTER:
