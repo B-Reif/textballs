@@ -1,12 +1,37 @@
 // @flow
 import actionTypes from "./action-types";
 
-type BaseAction<T, P> = { +type: T, +payload: P };
+// ============
+// STATE TYPES
+// ============
 
-export type Action =
-    BaseAction<typeof actionTypes.INIT_ANSWERS, Array<string>> |
-    BaseAction<typeof actionTypes.CHECK_WORD, string>;
+export type Letter = string;
+export type InertLetters = Array<Letter>;
+export type ActiveLetters = Array<Letter>;
 
-export type AnswerMap = {
-	[word: string]: boolean
+export type Letters = {
+	inertLetters: InertLetters,
+	activeLetters: ActiveLetters
 };
+
+export type Word = string;
+
+export type WordFoundMap = {
+	[word: Word]: boolean
+};
+
+// ============
+// ACTION TYPES
+// ============
+
+type BaseAction<T, P> = { type: T, payload: P };
+
+type LetterAction =
+	| BaseAction<typeof actionTypes.PUSH_LETTER, Letter>
+	| BaseAction<typeof actionTypes.POP_LETTER, Letter>;
+
+type AnswerAction =
+	| BaseAction<typeof actionTypes.INIT_WORDS, Array<string>>
+	| BaseAction<typeof actionTypes.CHECK_WORD, string>;
+
+export type Action = AnswerAction;
