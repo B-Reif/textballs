@@ -34,4 +34,6 @@ type AnswerAction =
 	| BaseAction<typeof actionTypes.INIT_WORDS, Array<string>>
 	| BaseAction<typeof actionTypes.CHECK_WORD, string>;
 
-export type Action = AnswerAction;
+type DefaultAction = BaseAction<null, null>;
+
+export type Action = AnswerAction | LetterAction | DefaultAction;

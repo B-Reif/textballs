@@ -6,65 +6,40 @@ import type {
 	InertLetters,
 	ActiveLetters
 } from "../types";
-import actions from "../action-types";
-const { PUSH_LETTER, POP_LETTER } = actions;
+import { PUSH_LETTER, POP_LETTER } from "../action-types";
 
-// PUSH_LETTER moves a letter from the Inert array to the Active array.
-// POP_LETTER does the opposite.
+const defaultAction: Action = { type: null, payload: null };
 
-function inertLetters(state: InertLetters = [], action: Action): InertLetters {
-	switch (action.type) {
-		case PUSH_LETTER: {
-			(action.payload: Letter);
-			const index = state.indexOf(action.payload);
-			return [...state.slice(0, index), ...state.slice(index + 1)];
-		}
-		case POP_LETTER:
-			(action.payload: Letter);
-			return state.concat([action.payload]);
-		default:
-			return state;
-	}
-}
-
-function activeLetters(
-	state: ActiveLetters = [],
-	action: Action
-): ActiveLetters {
-	switch (action.type) {
-		case PUSH_LETTER:
-			(action.payload: Letter);
-			return state.concat([action.payload]);
-		case POP_LETTER: {
-			// In this case we'd like the LAST instance of the letter, not the first.
-			(action.payload: Letter);
-			const reversed = state.slice().reverse();
-			const index = reversed.indexOf(action.payload);
-			return [
-				...reversed.slice(0, index),
-				...reversed.slice(index + 1)
-			].reverse();
-		}
-		default:
-			return state;
-	}
-}
-
-const initialState = {
+const initialState: Letters = {
 	inertLetters: [],
 	activeLetters: []
 };
 
 export default function letters(
 	state: Letters = initialState,
-	action: Action
+	action: Action = defaultAction
 ): Letters {
+	const { inertLetters, activeLetters } = state;
 	switch (action.type) {
+		// PUSH_LETTER moves the first instance of a given letter
+		// from the Inert array to the end of the Active array.
 		case PUSH_LETTER:
-		case POP_LETTER:
+			(action.payload: Letter);
+			const inertIndex = inertLetters.indexOf(action.payload);
 			return {
-				inertLetters: inertLetters(state.inertLetters, action),
-				activeLetters: activeLetters(state.activeLetters, action)
+				inertLetters: [
+					...inertLetters.slice(0, inertIndex),
+					...inertLetters.slice(inertIndex + 1)
+				],
+				activeLetters: activeLetters.concat([action.payload])
+			};
+		// POP_LETTER moves the last letter of the Active array
+		// to the end of the Inert array.
+		case POP_LETTER:
+			const lastLetter = activeLetters[activeLetters.length - 1];
+			return {
+				inertLetters: inertLetters.concat([lastLetter]),
+				activeLetters: activeLetters.slice(0, activeLetters.length - 1)
 			};
 		default:
 			return state;
