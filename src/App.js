@@ -2,8 +2,8 @@
 import React, { Component } from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { FrozenTrie } from "./Bits";
 import rootReducer from "./reducers";
+import Game from "./components/Game";
 import logo from "./logo.svg";
 import "./App.css";
 // import succinct from "!raw-loader!./succinct.txt";
@@ -16,21 +16,6 @@ const store = createStore(
 );
 
 class App extends Component {
-  componentDidMount() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "succinct.txt", false);
-    xhr.send(null);
-
-    var parts = xhr.responseText.split(",");
-    // console.log(parts);
-    var dict = new FrozenTrie(parts[2], parts[1], parts[0]);
-
-    var start = new Date().getTime();
-    for (var i = 0, l = 100; i < l; i++) {
-      // console.log(dict.lookup("test"));
-    }
-    alert(new Date().getTime() - start);
-  }
 
   render() {
     return (
@@ -43,6 +28,7 @@ class App extends Component {
           <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
+          <Game />
         </div>
       </Provider>
     );
