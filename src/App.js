@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./reducers";
+import KeyboardProvider from "./components/KeyboardProvider";
 import Game from "./components/Game";
 import logo from "./logo.svg";
 import "./App.css";
@@ -20,16 +21,18 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>Welcome to React</h2>
+        <KeyboardProvider inertLetters={"FLYING".split("")}>
+          <div className="App">
+            <div className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <h2>Welcome to React</h2>
+            </div>
+            <p className="App-intro">
+              To get started, edit <code>src/App.js</code> and save to reload.
+            </p>
+            <Game />
           </div>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-          <Game />
-        </div>
+        </KeyboardProvider>
       </Provider>
     );
   }
