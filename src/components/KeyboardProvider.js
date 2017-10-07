@@ -1,21 +1,32 @@
+// @flow
 import React from "react";
 import mousetrap from "mousetrap";
-import PropTypes from "prop-types";
+import type { Node as ReactNode } from "react";
+import type { Letter } from "../types";
 
-class KeyboardProvider extends React.Component {
-	constructor(props) {
+type Props = {
+	inertLetters: Array<Letter>,
+	children: ReactNode
+};
+
+class KeyboardProvider extends React.Component<Props> {
+
+	initBinds: Function;
+	clearBinds: Function;
+
+	constructor(props: Props) {
 		super(props);
 		this.initBinds = this.initBinds.bind(this);
 		this.clearBinds = this.clearBinds.bind(this);
 	}
 
-	initBinds(letters) {
+	initBinds(letters: Array<Letter>) {
 		letters.forEach(l =>
 			mousetrap.bind(l.toLowerCase(), e => console.log(l))
 		);
 	}
 
-	clearBinds(letters) {
+	clearBinds(letters: Array<Letter>) {
 		letters.forEach(l => mousetrap.unbind(l.toLowerCase()));
 	}
 
@@ -23,7 +34,7 @@ class KeyboardProvider extends React.Component {
 		this.initBinds(this.props.inertLetters);
 	}
 
-	componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps(nextProps: Props) {
 		this.clearBinds(this.props.inertLetters);
 		this.initBinds(nextProps.inertLetters);
 	}
@@ -33,9 +44,5 @@ class KeyboardProvider extends React.Component {
 		return React.Children.only(children);
 	}
 }
-
-KeyboardProvider.propTypes = {
-	inertLetters: PropTypes.arrayOf(PropTypes.string).isRequired
-};
 
 export default KeyboardProvider;
