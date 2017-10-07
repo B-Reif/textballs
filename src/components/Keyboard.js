@@ -6,10 +6,11 @@ import type { Letter } from "../types";
 
 type Props = {
 	inertLetters: Array<Letter>,
-	children: ReactNode
+	children: ReactNode,
+	pushLetter: Function
 };
 
-class KeyboardProvider extends React.Component<Props> {
+class Keyboard extends React.Component<Props> {
 
 	initBinds: Function;
 	clearBinds: Function;
@@ -34,6 +35,10 @@ class KeyboardProvider extends React.Component<Props> {
 		this.initBinds(this.props.inertLetters);
 	}
 
+	componentWillUnmount() {
+		this.clearBinds(this.props.inertLetters);
+	}
+
 	componentWillReceiveProps(nextProps: Props) {
 		this.clearBinds(this.props.inertLetters);
 		this.initBinds(nextProps.inertLetters);
@@ -45,4 +50,4 @@ class KeyboardProvider extends React.Component<Props> {
 	}
 }
 
-export default KeyboardProvider;
+export default Keyboard;
