@@ -26,10 +26,14 @@ export type WordFoundMap = {
 
 type BaseAction<T, P> = { type: T, payload: P };
 
+export type InitLettersAction = BaseAction<typeof actionTypes.INIT_LETTERS, Array<Letter>>;
+export type PushLetterAction = BaseAction<typeof actionTypes.PUSH_LETTER, Letter>;
+export type PopLetterAction = BaseAction<typeof actionTypes.POP_LETTER, Letter>;
+
 type LetterAction =
-	| BaseAction<typeof actionTypes.INIT_LETTERS, Array<Letter>>
-	| BaseAction<typeof actionTypes.PUSH_LETTER, Letter>
-	| BaseAction<typeof actionTypes.POP_LETTER, Letter>;
+	| InitLettersAction
+	| PushLetterAction
+	| PopLetterAction;
 
 type AnswerAction =
 	| BaseAction<typeof actionTypes.INIT_WORDS, Array<string>>

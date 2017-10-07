@@ -16,6 +16,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.55.0",
+    "flow-watch": "^1.1.1",
     "react-scripts": "1.0.13",
     "word-list-json": "^0.2.0"
   },
@@ -24,6 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "flow": "flow || true"
+    "flow": "flow || true",
+    "flow:watch": "flow-watch"
   }
 }
