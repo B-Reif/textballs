@@ -7,9 +7,9 @@ import type {
 	PopLetterAction,
 } from "../types";
 
-export const initLetters = (letters: Array<Letter>): InitLettersAction => ({
+export const initLetters = (glyphs: Array<string>): InitLettersAction => ({
 	type: actionTypes.INIT_LETTERS,
-	payload: letters
+	payload: glyphs
 });
 
 export const pushLetter = (letter: Letter): PushLetterAction => ({

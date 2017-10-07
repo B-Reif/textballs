@@ -1,10 +1,11 @@
 // @flow
-import type { Action, Letter, LettersSet } from "../types";
+import type { Action, Letter, LettersById, LettersSet } from "../types";
 import { INIT_LETTERS, PUSH_LETTER, POP_LETTER } from "../action-types";
 
 const defaultAction: Action = { type: null, payload: null };
 
 const initialState: LettersSet = {
+	lettersById: {},
 	inertLetters: [],
 	activeLetters: []
 };
@@ -13,14 +14,23 @@ export default function letters(
 	state: LettersSet = initialState,
 	action: Action = defaultAction
 ): LettersSet {
-	const { inertLetters, activeLetters } = state;
+	const { lettersById, inertLetters, activeLetters } = state;
 	switch (action.type) {
 		case INIT_LETTERS: {
-			const letters: Array<Letter> = action.payload;
+			const letters: Array<string> = action.payload;
+			const inertLetters: Array<Letter> = letters.map((glyph, id) => ({
+				id,
+				glyph
+			}));
+			const lettersById: LettersById = inertLetters.reduce((acc, letter) => ({
+				...acc,
+				[letter.id]: letter
+			}), {})
 			return {
-				inertLetters: letters.slice(),
+				lettersById,
+				inertLetters,
 				activeLetters: []
-			}
+			};
 		}
 		// PUSH_LETTER moves the first instance of a given letter
 		// from the Inert array to the end of the Active array.
@@ -28,6 +38,7 @@ export default function letters(
 			const letter: Letter = action.payload;
 			const inertIndex = inertLetters.indexOf(letter);
 			return {
+				lettersById,
 				inertLetters: [
 					...inertLetters.slice(0, inertIndex),
 					...inertLetters.slice(inertIndex + 1)
@@ -40,6 +51,7 @@ export default function letters(
 			const lastLetter = activeLetters[activeLetters.length - 1];
 			if (lastLetter === undefined) return state;
 			return {
+				lettersById,
 				inertLetters: [lastLetter].concat(inertLetters),
 				activeLetters: activeLetters.slice(0, activeLetters.length - 1)
 			};
