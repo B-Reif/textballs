@@ -35,12 +35,12 @@ export default function letters(
 				activeLetters: activeLetters.concat([letter])
 			};
 		// POP_LETTER moves the last letter of the Active array
-		// to the end of the Inert array.
+		// to the start of the Inert array.
 		case POP_LETTER:
 			const lastLetter = activeLetters[activeLetters.length - 1];
 			if (lastLetter === undefined) return state;
 			return {
-				inertLetters: inertLetters.concat([lastLetter]),
+				inertLetters: [lastLetter].concat(inertLetters),
 				activeLetters: activeLetters.slice(0, activeLetters.length - 1)
 			};
 		default:
