@@ -1,5 +1,6 @@
 import Keyboard from "../components/Keyboard";
 import { connect } from "react-redux";
+import { pushLetter } from "../actions/letter";
 
 function mapStateToProps(state, ownProps) {
 	return {
@@ -7,4 +8,4 @@ function mapStateToProps(state, ownProps) {
 	}
 }
 
-export default connect(mapStateToProps)(Keyboard);
+export default connect(mapStateToProps, { pushLetter })(Keyboard);

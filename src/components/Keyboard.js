@@ -22,8 +22,9 @@ class Keyboard extends React.Component<Props> {
 	}
 
 	initBinds(letters: Array<Letter>) {
+		const { pushLetter } = this.props;
 		letters.forEach(l =>
-			mousetrap.bind(l.toLowerCase(), e => console.log(l))
+			mousetrap.bind(l.toLowerCase(), () => pushLetter(l))
 		);
 	}
 
