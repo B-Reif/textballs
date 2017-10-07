@@ -12,7 +12,6 @@ type Props = {
 };
 
 class Keyboard extends React.Component<Props> {
-
 	initBinds: Function;
 	clearBinds: Function;
 
@@ -24,14 +23,16 @@ class Keyboard extends React.Component<Props> {
 
 	initBinds(letters: Array<Letter>) {
 		const { pushLetter, popLetter } = this.props;
-		letters.forEach(l =>
-			mousetrap.bind(l.toLowerCase(), () => pushLetter(l))
+		letters.forEach(({ id, glyph }) =>
+			mousetrap.bind(glyph.toLowerCase(), () => pushLetter(glyph))
 		);
-		mousetrap.bind("backspace", popLetter)
+		mousetrap.bind("backspace", popLetter);
 	}
 
 	clearBinds(letters: Array<Letter>) {
-		letters.forEach(l => mousetrap.unbind(l.toLowerCase()));
+		letters.forEach(({ id, glyph }) =>
+			mousetrap.unbind(glyph.toLowerCase())
+		);
 		mousetrap.unbind("backspace");
 	}
 

@@ -5,11 +5,22 @@ import actionTypes from "./action-types";
 // STATE TYPES
 // ============
 
-export type Letter = string;
+export type LetterId = number;
+export type LetterGlyph = string;
+
+export type Letter = {
+	id: LetterId,
+	glyph: LetterGlyph
+};
+
+export type LettersById = {
+	[LetterId]: Letter
+};
 
 type InertLetters = Array<Letter>;
 type ActiveLetters = Array<Letter>;
 export type LettersSet = {
+	lettersById: LettersById,
 	inertLetters: InertLetters,
 	activeLetters: ActiveLetters
 };
