@@ -1,7 +1,10 @@
+// @flow
 import React from "react";
 import AnswerList from "./AnswerList";
 import ActiveLetters from "./ActiveLetters";
 import InertLetters from "./InertLetters";
+
+import type { Letter } from "../types";
 
 const demoAnswers = {
 	FLYING: false,
@@ -10,14 +13,18 @@ const demoAnswers = {
 	FLY: false
 };
 
-const demoLetters = "FLYING".split("");
+type Props = {
+	activeLetters: Array<Letter>,
+	inertLetters: Array<Letter>
+};
 
-const Game = () => (
-	<div>
+const Game = (props: Props) => {
+	const { activeLetters, inertLetters } = props;
+	return <div>
 		<AnswerList answerMap={demoAnswers} />
-		<ActiveLetters letters={[]} />
-		<InertLetters letters={demoLetters} />
+		<ActiveLetters letters={activeLetters} />
+		<InertLetters letters={inertLetters} />
 	</div>
-);
+}
 
 export default Game;
