@@ -7,7 +7,8 @@ import type { Letter } from "../types";
 type Props = {
 	inertLetters: Array<Letter>,
 	children: ReactNode,
-	pushLetter: Function
+	pushLetter: Function,
+	popLetter: Function
 };
 
 class Keyboard extends React.Component<Props> {
@@ -22,14 +23,16 @@ class Keyboard extends React.Component<Props> {
 	}
 
 	initBinds(letters: Array<Letter>) {
-		const { pushLetter } = this.props;
+		const { pushLetter, popLetter } = this.props;
 		letters.forEach(l =>
 			mousetrap.bind(l.toLowerCase(), () => pushLetter(l))
 		);
+		mousetrap.bind("backspace", popLetter)
 	}
 
 	clearBinds(letters: Array<Letter>) {
 		letters.forEach(l => mousetrap.unbind(l.toLowerCase()));
+		mousetrap.unbind("backspace");
 	}
 
 	componentDidMount() {

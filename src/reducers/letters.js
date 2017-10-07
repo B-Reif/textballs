@@ -38,6 +38,7 @@ export default function letters(
 		// to the end of the Inert array.
 		case POP_LETTER:
 			const lastLetter = activeLetters[activeLetters.length - 1];
+			if (lastLetter === undefined) return state;
 			return {
 				inertLetters: inertLetters.concat([lastLetter]),
 				activeLetters: activeLetters.slice(0, activeLetters.length - 1)
