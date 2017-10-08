@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import PropTypes from "prop-types";
-import type { LettersById, LetterId } from "../types";
+import type { LettersById, LetterId, LetterGlyph } from "../types";
 
 type Props = {
 	lettersById: LettersById,
@@ -10,7 +10,7 @@ type Props = {
 
 const ActiveLetters = (props: Props) => {
 	const { letters, lettersById } = props;
-	const glyphs: Array<string> = letters.map(id => lettersById[id].glyph);
+	const glyphs: Array<LetterGlyph> = letters.map(id => lettersById[id].glyph);
 	return <div>{glyphs.join("")}</div>;
 }
 

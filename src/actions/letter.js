@@ -2,12 +2,13 @@
 import actionTypes from "../action-types";
 import type {
 	LetterId,
+	LetterGlyph,
 	InitLettersAction,
 	PushLetterAction,
 	PopLetterAction,
 } from "../types";
 
-export const initLetters = (glyphs: Array<string>): InitLettersAction => ({
+export const initLetters = (glyphs: Array<LetterGlyph>): InitLettersAction => ({
 	type: actionTypes.INIT_LETTERS,
 	payload: glyphs
 });

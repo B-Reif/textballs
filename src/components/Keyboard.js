@@ -3,7 +3,7 @@ import React from "react";
 import mousetrap from "mousetrap";
 import { uniqBy } from "lodash";
 import type { Node as ReactNode } from "react";
-import type { Letter, LettersById, LetterId } from "../types";
+import type { Letter, LettersById, LetterId, LetterGlyph } from "../types";
 
 type Props = {
 	lettersById: LettersById,
@@ -43,7 +43,7 @@ class Keyboard extends React.Component<Props> {
 	}
 
 	clearBinds(lettersById: LettersById) {
-		const glyphs: Array<string> = Object.keys(lettersById).map(
+		const glyphs: Array<LetterGlyph> = Object.keys(lettersById).map(
 			id => lettersById[id].glyph
 		);
 		glyphs.forEach(glyph => mousetrap.unbind(glyph.toLowerCase()));

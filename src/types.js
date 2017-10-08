@@ -37,7 +37,7 @@ export type WordFoundMap = {
 
 type BaseAction<T, P> = { type: T, payload: P };
 
-export type InitLettersAction = BaseAction<typeof actionTypes.INIT_LETTERS, Array<string>>;
+export type InitLettersAction = BaseAction<typeof actionTypes.INIT_LETTERS, Array<LetterGlyph>>;
 export type PushLetterAction = BaseAction<typeof actionTypes.PUSH_LETTER, LetterId>;
 export type PopLetterAction = BaseAction<typeof actionTypes.POP_LETTER, LetterId>;
 
