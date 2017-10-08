@@ -28,8 +28,8 @@ class Keyboard extends React.Component<Props> {
 
 	bindGlyphs() {
 		const { pushLetter, inertLetters, lettersById } = this.props;
-		const letters = Object.keys(lettersById).map(id => lettersById[id]);
-		const uniqLetters = uniqBy(letters, "glyph");
+		const letters: Array<Letter> = inertLetters.map(id => lettersById[id]);
+		const uniqLetters: Array<Letter> = uniqBy(letters, "glyph");
 		uniqLetters.forEach(({ id, glyph }) =>
 			mousetrap.bind(glyph.toLowerCase(), () => pushLetter(id))
 		);
@@ -38,12 +38,12 @@ class Keyboard extends React.Component<Props> {
 	bindBackspace() {
 		const { activeLetters, popLetter } = this.props;
 		if (activeLetters.length === 0) return;
-		const lastLetter = activeLetters[activeLetters.length - 1];
+		const lastLetter: LetterId = activeLetters[activeLetters.length - 1];
 		mousetrap.bind("backspace", () => popLetter(lastLetter));
 	}
 
 	clearBinds(lettersById: LettersById) {
-		const glyphs = Object.keys(lettersById).map(
+		const glyphs: Array<string> = Object.keys(lettersById).map(
 			id => lettersById[id].glyph
 		);
 		glyphs.forEach(glyph => mousetrap.unbind(glyph.toLowerCase()));
@@ -69,8 +69,7 @@ class Keyboard extends React.Component<Props> {
 	}
 
 	render() {
-		const { children } = this.props;
-		return React.Children.only(children);
+		return React.Children.only(this.props.children);
 	}
 }
 
