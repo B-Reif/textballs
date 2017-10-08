@@ -5,7 +5,7 @@ import actionTypes from "./action-types";
 // STATE TYPES
 // ============
 
-export type LetterId = number;
+export type LetterId = string;
 export type LetterGlyph = string;
 
 export type Letter = {

@@ -1,52 +1,71 @@
 // @flow
 import React from "react";
 import mousetrap from "mousetrap";
+import { uniqBy } from "lodash";
 import type { Node as ReactNode } from "react";
-import type { Letter } from "../types";
+import type { Letter, LettersById, LetterId } from "../types";
 
 type Props = {
-	inertLetters: Array<Letter>,
+	lettersById: LettersById,
+	inertLetters: Array<LetterId>,
+	activeLetters: Array<LetterId>,
 	children: ReactNode,
 	pushLetter: Function,
 	popLetter: Function
 };
 
 class Keyboard extends React.Component<Props> {
-	initBinds: Function;
+	bindGlyphs: Function;
+	bindBackspace: Function;
 	clearBinds: Function;
 
 	constructor(props: Props) {
 		super(props);
-		this.initBinds = this.initBinds.bind(this);
+		this.bindGlyphs = this.bindGlyphs.bind(this);
+		this.bindBackspace = this.bindBackspace.bind(this);
 		this.clearBinds = this.clearBinds.bind(this);
 	}
 
-	initBinds(letters: Array<Letter>) {
-		const { pushLetter, popLetter } = this.props;
-		letters.forEach(({ id, glyph }) =>
-			mousetrap.bind(glyph.toLowerCase(), () => pushLetter(glyph))
+	bindGlyphs() {
+		const { pushLetter, inertLetters, lettersById } = this.props;
+		const letters = Object.keys(lettersById).map(id => lettersById[id]);
+		const uniqLetters = uniqBy(letters, "glyph");
+		uniqLetters.forEach(({ id, glyph }) =>
+			mousetrap.bind(glyph.toLowerCase(), () => pushLetter(id))
 		);
-		mousetrap.bind("backspace", popLetter);
 	}
 
-	clearBinds(letters: Array<Letter>) {
-		letters.forEach(({ id, glyph }) =>
-			mousetrap.unbind(glyph.toLowerCase())
+	bindBackspace() {
+		const { activeLetters, popLetter } = this.props;
+		if (activeLetters.length === 0) return;
+		const lastLetter = activeLetters[activeLetters.length - 1];
+		mousetrap.bind("backspace", () => popLetter(lastLetter));
+	}
+
+	clearBinds(lettersById: LettersById) {
+		const glyphs = Object.keys(lettersById).map(
+			id => lettersById[id].glyph
 		);
+		glyphs.forEach(glyph => mousetrap.unbind(glyph.toLowerCase()));
 		mousetrap.unbind("backspace");
 	}
 
 	componentDidMount() {
-		this.initBinds(this.props.inertLetters);
+		this.bindGlyphs();
+		this.bindBackspace()
+	}
+
+	componentDidUpdate() {
+		this.bindGlyphs();
+		this.bindBackspace();
 	}
 
 	componentWillUnmount() {
 		this.clearBinds(this.props.inertLetters);
 	}
 
-	componentWillReceiveProps(nextProps: Props) {
-		this.clearBinds(this.props.inertLetters);
-		this.initBinds(nextProps.inertLetters);
+	componentWillReceiveProps() {
+		this.clearBinds(this.props.lettersById);
 	}
 
 	render() {

@@ -25,7 +25,7 @@ export default function letters(
 		case INIT_LETTERS: {
 			const glyphs = action.payload;
 			const letters: Array<Letter> = glyphs.map((glyph, index) => ({
-				id: index,
+				id: index.toString(),
 				glyph
 			}));
 			const lettersById: LettersById = letters.reduce(
@@ -55,6 +55,7 @@ export default function letters(
 		case POP_LETTER: {
 			const letterId: LetterId = action.payload;
 			if (letterId === undefined) return state;
+			if (!activeLetters.includes(letterId)) return state;
 			return {
 				lettersById,
 				inertLetters: [letterId].concat(inertLetters),
