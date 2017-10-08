@@ -17,8 +17,8 @@ export type LettersById = {
 	[LetterId]: Letter
 };
 
-type InertLetters = Array<Letter>;
-type ActiveLetters = Array<Letter>;
+type InertLetters = Array<LetterId>;
+type ActiveLetters = Array<LetterId>;
 export type LettersSet = {
 	lettersById: LettersById,
 	inertLetters: InertLetters,
@@ -38,8 +38,8 @@ export type WordFoundMap = {
 type BaseAction<T, P> = { type: T, payload: P };
 
 export type InitLettersAction = BaseAction<typeof actionTypes.INIT_LETTERS, Array<string>>;
-export type PushLetterAction = BaseAction<typeof actionTypes.PUSH_LETTER, Letter>;
-export type PopLetterAction = BaseAction<typeof actionTypes.POP_LETTER, Letter>;
+export type PushLetterAction = BaseAction<typeof actionTypes.PUSH_LETTER, LetterId>;
+export type PopLetterAction = BaseAction<typeof actionTypes.POP_LETTER, LetterId>;
 
 type LetterAction =
 	| InitLettersAction

@@ -1,5 +1,11 @@
 // @flow
-import type { Action, Letter, LettersById, LettersSet } from "../types";
+import type {
+	Action,
+	Letter,
+	LetterId,
+	LettersById,
+	LettersSet
+} from "../types";
 import { INIT_LETTERS, PUSH_LETTER, POP_LETTER } from "../action-types";
 
 const defaultAction: Action = { type: null, payload: null };
@@ -17,44 +23,44 @@ export default function letters(
 	const { lettersById, inertLetters, activeLetters } = state;
 	switch (action.type) {
 		case INIT_LETTERS: {
-			const letters: Array<string> = action.payload;
-			const inertLetters: Array<Letter> = letters.map((glyph, id) => ({
-				id,
+			const glyphs = action.payload;
+			const letters: Array<Letter> = glyphs.map((glyph, index) => ({
+				id: index,
 				glyph
 			}));
-			const lettersById: LettersById = inertLetters.reduce((acc, letter) => ({
-				...acc,
-				[letter.id]: letter
-			}), {})
+			const lettersById: LettersById = letters.reduce(
+				(acc, letter) => ({
+					...acc,
+					[letter.id]: letter
+				}),
+				{}
+			);
+			const inertLetters: Array<LetterId> = letters.map(({ id }) => id);
 			return {
 				lettersById,
 				inertLetters,
 				activeLetters: []
 			};
 		}
-		// PUSH_LETTER moves the first instance of a given letter
-		// from the Inert array to the end of the Active array.
-		case PUSH_LETTER:
-			const letter: Letter = action.payload;
-			const inertIndex = inertLetters.indexOf(letter);
+		// PUSH_LETTER moves a given letter from Inert to Active.
+		case PUSH_LETTER: {
+			const letterId: LetterId = action.payload;
 			return {
 				lettersById,
-				inertLetters: [
-					...inertLetters.slice(0, inertIndex),
-					...inertLetters.slice(inertIndex + 1)
-				],
-				activeLetters: activeLetters.concat([letter])
+				inertLetters: inertLetters.filter(id => id !== letterId),
+				activeLetters: activeLetters.concat(letterId)
 			};
-		// POP_LETTER moves the last letter of the Active array
-		// to the start of the Inert array.
-		case POP_LETTER:
-			const lastLetter = activeLetters[activeLetters.length - 1];
-			if (lastLetter === undefined) return state;
+		}
+		// POP_LETTER moves a letter from Active to Inert.
+		case POP_LETTER: {
+			const letterId: LetterId = action.payload;
+			if (letterId === undefined) return state;
 			return {
 				lettersById,
-				inertLetters: [lastLetter].concat(inertLetters),
-				activeLetters: activeLetters.slice(0, activeLetters.length - 1)
+				inertLetters: [letterId].concat(inertLetters),
+				activeLetters: activeLetters.filter(id => id !== letterId)
 			};
+		}
 		default:
 			return state;
 	}
