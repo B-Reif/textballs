@@ -1,11 +1,9 @@
+// @flow
 import Game from "../components/Game";
 import { connect } from "react-redux";
 
 function mapStateToProps(state, ownProps) {
-	return {
-		inertLetters: state.letters.inertLetters,
-		activeLetters: state.letters.activeLetters,
-	}
+	return { ...state.letters, ...ownProps }
 }
 
 export default connect(mapStateToProps)(Game);

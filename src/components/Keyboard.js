@@ -61,7 +61,7 @@ class Keyboard extends React.Component<Props> {
 	}
 
 	componentWillUnmount() {
-		this.clearBinds(this.props.inertLetters);
+		this.clearBinds(this.props.lettersById);
 	}
 
 	componentWillReceiveProps() {

@@ -3,8 +3,7 @@ import React from "react";
 import AnswerList from "./AnswerList";
 import ActiveLetters from "./ActiveLetters";
 import InertLetters from "./InertLetters";
-
-import type { Letter } from "../types";
+import type { LetterId, LettersById } from "../types";
 
 const demoAnswers = {
 	FLYING: false,
@@ -14,17 +13,20 @@ const demoAnswers = {
 };
 
 type Props = {
-	activeLetters: Array<Letter>,
-	inertLetters: Array<Letter>
+	lettersById: LettersById,
+	activeLetters: Array<LetterId>,
+	inertLetters: Array<LetterId>
 };
 
 const Game = (props: Props) => {
-	const { activeLetters, inertLetters } = props;
-	return <div>
-		<AnswerList answerMap={demoAnswers} />
-		<ActiveLetters letters={activeLetters} />
-		<InertLetters letters={inertLetters} />
-	</div>
-}
+	const { lettersById, activeLetters, inertLetters } = props;
+	return (
+		<div>
+			<AnswerList answerMap={demoAnswers} />
+			<ActiveLetters lettersById={lettersById} letters={activeLetters} />
+			<InertLetters lettersById={lettersById} letters={inertLetters} />
+		</div>
+	);
+};
 
 export default Game;
