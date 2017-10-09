@@ -1,8 +1,7 @@
 // @flow
 import React from "react";
 import WordList from "./WordList";
-import ActiveLetters from "./ActiveLetters";
-import InertLetters from "./InertLetters";
+import LetterLists from "./LetterLists";
 import type { LetterId, LettersById, WordFoundMap } from "../types";
 
 type Props = {
@@ -17,8 +16,11 @@ const Game = (props: Props) => {
 	return (
 		<div className="Game">
 			<WordList words={words} />
-			<ActiveLetters lettersById={lettersById} letters={activeLetters} />
-			<InertLetters lettersById={lettersById} letters={inertLetters} />
+			<LetterLists
+				lettersById={lettersById}
+				activeLetters={activeLetters}
+				inertLetters={inertLetters}
+			/>
 		</div>
 	);
 };
