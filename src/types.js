@@ -47,9 +47,12 @@ type LetterAction =
 	| PushLetterAction
 	| PopLetterAction;
 
+export type InitWordsAction = BaseAction<typeof actionTypes.INIT_WORDS, Array<string>>;
+export type CheckWordAction = BaseAction<typeof actionTypes.CHECK_WORD, string>;
+
 type WordAction =
-	| BaseAction<typeof actionTypes.INIT_WORDS, Array<string>>
-	| BaseAction<typeof actionTypes.CHECK_WORD, string>;
+	| InitWordsAction
+	| CheckWordAction
 
 type DefaultAction = BaseAction<null, null>;
 

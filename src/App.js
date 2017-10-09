@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { createStore } from "redux";
-import {initLetters} from "./actions/letter";
+import { initLetters } from "./actions/letter";
+import { initWords } from "./actions/word";
 import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import KeyboardContainer from "./containers/KeyboardContainer";
@@ -16,6 +17,7 @@ const store = createStore(
 class App extends Component {
 	componentWillMount() {
 		store.dispatch(initLetters("FLYING".split("")));
+		store.dispatch(initWords(["FLYING", "LYING", "FLING", "FLY", "GIN"]));
 	}
 
 	render() {

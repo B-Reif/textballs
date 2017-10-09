@@ -8,18 +8,18 @@ Answer.propTypes = {
 	answer: PropTypes.string.isRequired
 };
 
-const AnswerList = ({ answerMap }) => {
+const AnswerList = ({ words }) => {
 	return (
 		<div>
-			{Object.keys(answerMap).map(a => (
-				<Answer key={a} answer={a} found={answerMap[a]} />
+			{Object.keys(words).map(a => (
+				<Answer key={a} answer={a} found={words[a]} />
 			))}
 		</div>
 	);
 };
 
 AnswerList.propTypes = {
-	answerMap: PropTypes.objectOf(PropTypes.bool).isRequired
+	words: PropTypes.objectOf(PropTypes.bool).isRequired
 };
 
 export default AnswerList;

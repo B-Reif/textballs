@@ -1,28 +1,22 @@
 // @flow
 import React from "react";
-import AnswerList from "./AnswerList";
+import WordList from "./WordList";
 import ActiveLetters from "./ActiveLetters";
 import InertLetters from "./InertLetters";
-import type { LetterId, LettersById } from "../types";
-
-const demoAnswers = {
-	FLYING: false,
-	LYING: false,
-	FLING: false,
-	FLY: false
-};
+import type { LetterId, LettersById, WordFoundMap } from "../types";
 
 type Props = {
+	words: WordFoundMap,
 	lettersById: LettersById,
 	activeLetters: Array<LetterId>,
 	inertLetters: Array<LetterId>
 };
 
 const Game = (props: Props) => {
-	const { lettersById, activeLetters, inertLetters } = props;
+	const { words, lettersById, activeLetters, inertLetters } = props;
 	return (
 		<div>
-			<AnswerList answerMap={demoAnswers} />
+			<WordList words={words} />
 			<ActiveLetters lettersById={lettersById} letters={activeLetters} />
 			<InertLetters lettersById={lettersById} letters={inertLetters} />
 		</div>
