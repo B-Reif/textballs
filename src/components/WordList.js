@@ -2,7 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Answer = ({ answer, found }) =>
-	found ? <div>{answer}</div> : <div>?</div>;
+	found ? (
+		<div>{answer}</div>
+	) : (
+		<div>
+			{answer
+				.split("")
+				.map(l => "?")
+				.join("")}
+		</div>
+	);
 
 Answer.propTypes = {
 	answer: PropTypes.string.isRequired
