@@ -37,6 +37,7 @@ export type WordFoundMap = {
 
 type BaseAction<T, P> = { type: T, payload: P };
 
+// Letter actions
 export type InitLettersAction = BaseAction<typeof actionTypes.INIT_LETTERS, Array<LetterGlyph>>;
 export type PushLetterAction = BaseAction<typeof actionTypes.PUSH_LETTER, LetterId>;
 export type PopLetterAction = BaseAction<typeof actionTypes.POP_LETTER, LetterId>;
@@ -46,10 +47,10 @@ type LetterAction =
 	| PushLetterAction
 	| PopLetterAction;
 
-type AnswerAction =
+type WordAction =
 	| BaseAction<typeof actionTypes.INIT_WORDS, Array<string>>
 	| BaseAction<typeof actionTypes.CHECK_WORD, string>;
 
 type DefaultAction = BaseAction<null, null>;
 
-export type Action = AnswerAction | LetterAction | DefaultAction;
+export type Action = WordAction | LetterAction | DefaultAction;

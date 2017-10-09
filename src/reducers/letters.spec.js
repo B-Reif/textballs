@@ -1,6 +1,6 @@
 import letters from "./letters";
 import deepFreeze from "deep-freeze";
-import { INIT_LETTERS, PUSH_LETTER, POP_LETTER } from "../action-types";
+import { INIT_LETTERS, PUSH_LETTER, POP_LETTER, CHECK_WORD } from "../action-types";
 
 describe("letters reducer", () => {
 	const initialState = deepFreeze({
@@ -105,4 +105,9 @@ describe("letters reducer", () => {
 		};
 		expect(letters(initialState, action)).toEqual(expectedState);
 	});
+
+	// it("handles CHECK_WORD", () => {
+	// 	const action = { type: CHECK_WORD };
+	// })
+
 });
