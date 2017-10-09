@@ -25,3 +25,14 @@ body {
 .ActiveLetters {
 	font-size: 24px;
 }
+
+.Letter {
+	color: #3ea8dd;
+	height: 24px;
+	width: 24px;
+	display: inline-block;
+	background: #F5F5F5;
+	padding: 0.5em;
+	border-radius: 50%;
+	margin: 0.2em;
+}
