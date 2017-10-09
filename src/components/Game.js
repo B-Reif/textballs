@@ -15,7 +15,7 @@ type Props = {
 const Game = (props: Props) => {
 	const { words, lettersById, activeLetters, inertLetters } = props;
 	return (
-		<div>
+		<div className="Game">
 			<WordList words={words} />
 			<ActiveLetters lettersById={lettersById} letters={activeLetters} />
 			<InertLetters lettersById={lettersById} letters={inertLetters} />

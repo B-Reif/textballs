@@ -6,8 +6,6 @@ import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import KeyboardContainer from "./containers/KeyboardContainer";
 import GameContainer from "./containers/GameContainer";
-import logo from "./logo.svg";
-import "./App.css";
 
 const store = createStore(
 	rootReducer,
@@ -16,7 +14,7 @@ const store = createStore(
 
 class App extends Component {
 	componentWillMount() {
-		store.dispatch(initLetters("FLYING".split("")));
+		store.dispatch(initLetters("GYLFNI".split("")));
 		store.dispatch(initWords(["FLYING", "LYING", "FLING", "FLY", "GIN"]));
 	}
 
@@ -25,14 +23,7 @@ class App extends Component {
 			<Provider store={store}>
 				<KeyboardContainer>
 					<div className="App">
-						<div className="App-header">
-							<img src={logo} className="App-logo" alt="logo" />
-							<h2>Welcome to React</h2>
-						</div>
-						<p className="App-intro">
-							To get started, edit <code>src/App.js</code> and
-							save to reload.
-						</p>
+						<h1>Text Twist</h1>
 						<GameContainer />
 					</div>
 				</KeyboardContainer>
