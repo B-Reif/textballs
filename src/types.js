@@ -41,18 +41,20 @@ type BaseAction<T, P> = { type: T, payload: P };
 export type InitLettersAction = BaseAction<typeof actionTypes.INIT_LETTERS, Array<LetterGlyph>>;
 export type PushLetterAction = BaseAction<typeof actionTypes.PUSH_LETTER, LetterId>;
 export type PopLetterAction = BaseAction<typeof actionTypes.POP_LETTER, LetterId>;
+export type ShuffleLettersAction = BaseAction<typeof actionTypes.SHUFFLE_LETTERS, Array<LetterId>>;
 
 type LetterAction =
 	| InitLettersAction
 	| PushLetterAction
-	| PopLetterAction;
+	| PopLetterAction
+	| ShuffleLettersAction;
 
 export type InitWordsAction = BaseAction<typeof actionTypes.INIT_WORDS, Array<string>>;
 export type CheckWordAction = BaseAction<typeof actionTypes.CHECK_WORD, string>;
 
 type WordAction =
 	| InitWordsAction
-	| CheckWordAction
+	| CheckWordAction;
 
 type DefaultAction = BaseAction<null, null>;
 

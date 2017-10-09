@@ -13,6 +13,7 @@ type Props = {
 	pushLetter: Function,
 	popLetter: Function,
 	checkWord: Function,
+	shuffleLetters: Function,
 };
 
 class Keyboard extends React.Component<Props> {
@@ -45,10 +46,6 @@ class Keyboard extends React.Component<Props> {
 		Mousetrap.bind("backspace", () => popLetter(lastLetter));
 	}
 
-	bindEnter() {
-		Mousetrap.bind("enter", this.checkWord);
-	}
-
 	checkWord() {
 		const { activeLetters, lettersById, checkWord } = this.props;
 		const activeGlyphs: Array<LetterGlyph> = activeLetters.map(id => lettersById[id].glyph);
@@ -64,20 +61,23 @@ class Keyboard extends React.Component<Props> {
 	}
 
 	componentDidMount() {
+		const { shuffleLetters } = this.props;
 		this.bindGlyphs();
 		this.bindBackspace();
-		this.bindEnter();
-	}
-
-	componentDidUpdate() {
-		this.bindGlyphs();
-		this.bindBackspace();
+		Mousetrap.bind("enter", this.checkWord);
+		Mousetrap.bind("space", () => shuffleLetters(this.props.inertLetters));
 	}
 
 	componentWillUnmount() {
 		this.unbindGlyphs(this.props.lettersById);
 		Mousetrap.unbind("backspace");
 		Mousetrap.unbind("enter");
+		Mousetrap.unbind("space");
+	}
+
+	componentDidUpdate() {
+		this.bindGlyphs();
+		this.bindBackspace();
 	}
 
 	componentWillReceiveProps() {

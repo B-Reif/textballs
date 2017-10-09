@@ -6,7 +6,9 @@ import type {
 	InitLettersAction,
 	PushLetterAction,
 	PopLetterAction,
+	ShuffleLettersAction
 } from "../types";
+import { shuffle } from "lodash";
 
 export const initLetters = (glyphs: Array<LetterGlyph>): InitLettersAction => ({
 	type: actionTypes.INIT_LETTERS,
@@ -22,3 +24,11 @@ export const popLetter = (letter: LetterId): PopLetterAction => ({
 	type: actionTypes.POP_LETTER,
 	payload: letter
 });
+
+export const shuffleLetters = (letters: Array<LetterId>): ShuffleLettersAction => {
+	const shuffledLetters = shuffle(letters);
+	return {
+		type: actionTypes.SHUFFLE_LETTERS,
+		payload: shuffledLetters
+	}
+}

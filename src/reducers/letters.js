@@ -6,7 +6,13 @@ import type {
 	LettersById,
 	LettersSet
 } from "../types";
-import { INIT_LETTERS, PUSH_LETTER, POP_LETTER, CHECK_WORD } from "../action-types";
+import {
+	INIT_LETTERS,
+	PUSH_LETTER,
+	POP_LETTER,
+	CHECK_WORD,
+	SHUFFLE_LETTERS
+} from "../action-types";
 
 const defaultAction: Action = { type: null, payload: null };
 
@@ -62,12 +68,19 @@ export default function letters(
 				activeLetters: activeLetters.filter(id => id !== letterId)
 			};
 		}
+		case SHUFFLE_LETTERS: {
+			const letters: Array<LetterId> = action.payload;
+			return {
+				...state,
+				inertLetters: letters
+			}
+		}
 		case CHECK_WORD: {
 			return {
 				lettersById,
 				inertLetters: activeLetters.concat(inertLetters),
 				activeLetters: []
-			}
+			};
 		}
 		default:
 			return state;
