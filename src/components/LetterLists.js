@@ -2,8 +2,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Letter from "./Letter";
-import { Motion } from "react-motion";
+import { Motion, spring as baseSpring } from "react-motion";
 import type { LettersById, LetterId } from "../types";
+
+const spring = val => baseSpring(val, {
+	stiffness: 260, damping: 20
+})
 
 type Props = {
 	lettersById: LettersById,
@@ -12,44 +16,55 @@ type Props = {
 };
 
 const layout = (index, active) => {
-	const x = index * 100;
-	const y = active ? 0 : 100;
+	const x = index * 60;
+	const y = active ? 10 : 90;
 	return [x, y];
 };
 
 class LetterLists extends React.Component<Props> {
+	renderLetter: Function
+
+	constructor(props: Props) {
+		super(props);
+		this.renderLetter = this.renderLetter.bind(this);
+	}
+
+	renderLetter(id: string, index: number, active: boolean) {
+		const { lettersById } = this.props;
+		const [x, y] = layout(index, active);
+		const style = {
+			translateX: spring(x),
+			translateY: spring(y)
+		};
+		return (
+			<Motion key={id} style={style}>
+				{({ translateX, translateY }) => {
+					return (
+						<Letter
+							id={id}
+							glyph={lettersById[id].glyph}
+							style={{
+								transform: `translate3d(${translateX}px, ${translateY}px, 0)`
+							}}
+						/>
+					);
+				}}
+			</Motion>
+		);
+	}
+
 	render() {
 		const { lettersById, inertLetters, activeLetters } = this.props;
-		const inertChildren = inertLetters.map((id, index) => {
-			let [x, y] = layout(index, false);
-			let style = {
-				translateX: x,
-				translateY: y
-			};
-			return (
-				<Motion key={id} style={style}>
-					{({ translateX, translateY }) => {
-						return (
-							<Letter
-								id={id}
-								glyph={lettersById[id].glyph}
-								style={{
-									transform: `translate3d(${translateX}px, ${translateY}px`
-								}}
-							/>
-						);
-					}}
-				</Motion>
-			);
-			return;
+		const letters = Object.keys(lettersById);
+		const children = letters.map(id => {
+			const activeIndex = activeLetters.indexOf(id);
+			const listIndex =
+				activeIndex === -1 ? inertLetters.indexOf(id) : activeIndex;
+			return this.renderLetter(id, listIndex, activeIndex !== -1);
 		});
-		const activeChildren = activeLetters.map(id => (
-			<Letter key={id} id={id} glyph={lettersById[id].glyph} />
-		));
 		return (
 			<div className="LetterLists">
-				{activeChildren}
-				{inertChildren}
+				{children}
 				<div className="ActiveLetters" />
 				<div className="InertLetters" />
 			</div>

@@ -1,6 +1,7 @@
+// @flow
 import React from "react";
 
-const Letter = ({ id, glyph }) =>
-	<span className="Letter">{glyph}</span>
+const Letter = ({ glyph, style }: {glyph: string, style: {}}) =>
+	<span style={style} className="Letter">{glyph}</span>
 
 export default Letter;
