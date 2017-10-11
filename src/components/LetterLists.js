@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import PropTypes from "prop-types";
-import Letter from "./Letter";
+import LetterContainer from "../containers/LetterContainer";
 import { Motion, spring as baseSpring } from "react-motion";
 import type { LettersById, LetterId } from "../types";
 
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const layout = (index, active) => {
-	const x = index * 60;
+	const x = 2 + index * 60;
 	const y = active ? 10 : 90;
 	return [x, y];
 };
@@ -40,7 +40,7 @@ class LetterLists extends React.Component<Props> {
 			<Motion key={id} style={style}>
 				{({ translateX, translateY }) => {
 					return (
-						<Letter
+						<LetterContainer
 							id={id}
 							glyph={lettersById[id].glyph}
 							style={{

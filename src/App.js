@@ -23,7 +23,7 @@ class App extends Component {
 			<Provider store={store}>
 				<KeyboardContainer>
 					<div className="App">
-						<h1>Text Twist</h1>
+						<h1>Textballs</h1>
 						<GameContainer />
 					</div>
 				</KeyboardContainer>
