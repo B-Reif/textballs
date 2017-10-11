@@ -1,34 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Word from "./Word";
 
-const Answer = ({ answer, found }) =>
-	found ? (
-		<div>{answer}</div>
-	) : (
-		<div>
-			{answer
-				.split("")
-				.map(l => "?")
-				.join("")}
-		</div>
-	);
-
-Answer.propTypes = {
-	answer: PropTypes.string.isRequired
-};
-
-const AnswerList = ({ words }) => {
+const WordList = ({ words }) => {
 	return (
-		<div>
+		<div className="WordList">
 			{Object.keys(words).map(a => (
-				<Answer key={a} answer={a} found={words[a]} />
+				<Word key={a} answer={a} found={words[a]} />
 			))}
 		</div>
 	);
 };
 
-AnswerList.propTypes = {
+WordList.propTypes = {
 	words: PropTypes.objectOf(PropTypes.bool).isRequired
 };
 
-export default AnswerList;
+export default WordList;
