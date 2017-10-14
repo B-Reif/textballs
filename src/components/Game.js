@@ -14,8 +14,13 @@ type GameProps = {
 	lettersById: LettersById,
 	activeLetters: Array<LetterId>,
 	inertLetters: Array<LetterId>,
-	checkWord: Function
+	checkWord: Function,
+	shuffleLetters: Function
 };
+
+const ShuffleButton = ({ inertLetters, shuffleLetters }) => (
+	<button onClick={() => shuffleLetters(inertLetters)}>Shuffle Balls</button>
+);
 
 const SubmitButton = ({ lettersById, activeLetters, checkWord }) => {
 	const clickHandler = () => {
@@ -33,7 +38,8 @@ const Game = (props: GameProps) => {
 		lettersById,
 		activeLetters,
 		inertLetters,
-		checkWord
+		checkWord,
+		shuffleLetters
 	} = props;
 	return (
 		<div className="Game">
@@ -47,6 +53,10 @@ const Game = (props: GameProps) => {
 				lettersById={lettersById}
 				activeLetters={activeLetters}
 				checkWord={checkWord}
+			/>
+			<ShuffleButton
+				inertLetters={inertLetters}
+				shuffleLetters={shuffleLetters}
 			/>
 		</div>
 	);
