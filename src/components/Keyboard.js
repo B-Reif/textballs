@@ -13,7 +13,7 @@ type Props = {
 	pushLetter: Function,
 	popLetter: Function,
 	checkWord: Function,
-	shuffleLetters: Function,
+	shuffleLetters: Function
 };
 
 class Keyboard extends React.Component<Props> {
@@ -48,7 +48,9 @@ class Keyboard extends React.Component<Props> {
 
 	checkWord() {
 		const { activeLetters, lettersById, checkWord } = this.props;
-		const activeGlyphs: Array<LetterGlyph> = activeLetters.map(id => lettersById[id].glyph);
+		const activeGlyphs: Array<LetterGlyph> = activeLetters.map(
+			id => lettersById[id].glyph
+		);
 		const word = activeGlyphs.join("");
 		checkWord(word);
 	}
