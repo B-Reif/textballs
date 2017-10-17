@@ -1,13 +1,7 @@
 const baseWords = require("word-list-json");
 const uniq = require("lodash/uniq");
+const profanityFilter = require("profanity-analysis");
 const fs = require("fs");
-
-const lengthSlices = {
-	"3": baseWords.slice(124, 1435),
-	"4": baseWords.slice(1435, 6963),
-	"5": baseWords.slice(6963, 19614),
-	"6": baseWords.slice(19614, 42030)
-};
 
 // from le_m on StackOverflow
 // https://stackoverflow.com/a/37580979
@@ -38,21 +32,44 @@ function permute(word) {
 }
 
 function deepPermute(word, permutations = []) {
+	const permutes = permutations.concat(permute(word));
 	if (word.length === 3) {
-		return permutations.concat(permute(word));
+		return permutes;
 	}
-	return deepPermute(
-		word.slice(0, word.length - 1),
-		permutations.concat(permute(word))
+	const letterArray = word.split("");
+	const nextSubstrings = letterArray.map((letter, idx) =>
+		[...letterArray.slice(0, idx), ...letterArray.slice(idx + 1)].join("")
 	);
+	const nextPermutations = nextSubstrings.reduce(
+		(acc, val) => acc.concat(deepPermute(val, [])),
+		[]
+	);
+	const result = uniq(permutes.concat(nextPermutations));
+	return result;
 }
 
-console.log("Generating permutations");
-// const longWordPermuts = lengthSlices["6"].slice(8, 9).map(w => deepPermute(w));
-// const longWordPermuts = ["flying"].map(w => deepPermute(w))
-// console.log(longWordPermuts[0].every(w => w.length === 6));
-// const filteredPermuts = longWordPermuts.map((substrings, index) => {
-// 	return uniq(substrings.filter(ss => lengthSlices[ss.length].includes(ss)));
-// });
+const gameWords = baseWords.slice(124, 42030);
 
-// console.log(filteredPermuts[0]);
+const lengthSlices = {
+	"3": baseWords.slice(124, 1435),
+	"4": baseWords.slice(1435, 6963),
+	"5": baseWords.slice(6963, 19614),
+	"6": baseWords.slice(19614, 42030)
+};
+
+function filterWords(words) {
+	return words.filter(w => !profanityFilter.analyzeBlob(w).failed);
+}
+
+const filteredGameWords = filterWords(gameWords);
+const filteredLongWords = filterWords(lengthSlices[6]);
+
+function gameFromWord(word) {
+	const permutations = deepPermute(word);
+	const words = permutations.filter(p => filteredGameWords.includes(p));
+	return words;
+}
+
+const games = filteredLongWords.slice(0, 100).map(gameFromWord);
+console.log(games);
+
