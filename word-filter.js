@@ -1,7 +1,9 @@
-const baseWords = require("word-list-json");
+const wordlist = require("wordlist-english");
 const uniq = require("lodash/uniq");
 const profanityFilter = require("profanity-analysis");
 const fs = require("fs");
+
+const baseWords = wordlist["english"];
 
 // from le_m on StackOverflow
 // https://stackoverflow.com/a/37580979
@@ -48,21 +50,16 @@ function deepPermute(word, permutations = []) {
 	return result;
 }
 
-const gameWords = baseWords.slice(124, 42030);
-
-const lengthSlices = {
-	"3": baseWords.slice(124, 1435),
-	"4": baseWords.slice(1435, 6963),
-	"5": baseWords.slice(6963, 19614),
-	"6": baseWords.slice(19614, 42030)
-};
+const gameWords = baseWords.filter(w => w.length > 2 && w.length < 7);
+const longWords = gameWords.filter(w => w.length === 6);
 
 function filterWords(words) {
 	return words.filter(w => !profanityFilter.analyzeBlob(w).failed);
 }
 
+
 const filteredGameWords = filterWords(gameWords);
-const filteredLongWords = filterWords(lengthSlices[6]);
+const filteredLongWords = filterWords(longWords);
 
 function gameFromWord(word) {
 	const permutations = deepPermute(word);
@@ -70,6 +67,10 @@ function gameFromWord(word) {
 	return words;
 }
 
-const games = filteredLongWords.slice(0, 100).map(gameFromWord);
-console.log(games);
+// for (let idx = 0; idx < filteredLongWords.length; idx += 100) {
+// 	const cap = Math.min(idx + 100, filteredLongWords.length)
+// 	const games = filteredLongWords.slice(idx, cap).map(gameFromWord);
+// 	const filename = `games/games${idx / 100}.json`;
+// 	fs.writeFileSync(filename, JSON.stringify(games))
+// }
 

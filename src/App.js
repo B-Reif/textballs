@@ -6,6 +6,10 @@ import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import KeyboardContainer from "./containers/KeyboardContainer";
 import GameContainer from "./containers/GameContainer";
+import { sample, shuffle } from "lodash";
+import games from "./games.json";
+
+const getGame = () => sample(games).map(word => word.toUpperCase()).sort((a, b) => a.length - b.length);
 
 const store = createStore(
 	rootReducer,
@@ -13,9 +17,13 @@ const store = createStore(
 );
 
 class App extends Component {
+
 	componentWillMount() {
-		store.dispatch(initLetters("GYLFNI".split("")));
-		store.dispatch(initWords(["FLYING", "LYING", "FLING", "FLY", "GIN"]));
+		const game = getGame();
+		const key = game[game.length - 1];
+		const letters = shuffle(key.split(""))
+		store.dispatch(initLetters(letters));
+		store.dispatch(initWords(game));
 	}
 
 	render() {
