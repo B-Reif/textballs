@@ -19,6 +19,7 @@
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.55.0",
     "flow-watch": "^1.1.1",
+    "gh-pages": "^1.0.0",
     "profanity-analysis": "0.0.5",
     "react-scripts": "1.0.13",
     "trie-search": "^1.0.9",
@@ -30,6 +31,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow || true",
-    "flow:watch": "flow-watch"
-  }
+    "flow:watch": "flow-watch",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "homepage": "https://b-reif.github.io/textballs"
 }
