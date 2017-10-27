@@ -18,11 +18,22 @@ type GameProps = {
 	shuffleLetters: Function
 };
 
-const ShuffleButton = ({ inertLetters, shuffleLetters }) => (
+type ShuffleButtonProps = {
+	inertLetters: Array<LetterId>,
+	shuffleLetters: (Array<LetterId>) => void
+}
+
+const ShuffleButton = ({ inertLetters, shuffleLetters }: ShuffleButtonProps) => (
 	<button onClick={() => shuffleLetters(inertLetters)}>Shuffle Balls</button>
 );
 
-const SubmitButton = ({ lettersById, activeLetters, checkWord }) => {
+type SubmitButtonProps = {
+	lettersById: LettersById,
+	activeLetters: Array<LetterId>,
+	checkWord: (string) => void
+}
+
+const SubmitButton = ({ lettersById, activeLetters, checkWord }: SubmitButtonProps) => {
 	const clickHandler = () => {
 		const activeGlyphs: Array<LetterGlyph> = activeLetters.map(
 			l => lettersById[l].glyph

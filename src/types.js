@@ -31,6 +31,11 @@ export type WordFoundMap = {
 	[word: Word]: boolean
 };
 
+export type State = {
+	words: WordFoundMap,
+	letters: LettersSet
+}
+
 // ============
 // ACTION TYPES
 // ============
