@@ -10,16 +10,16 @@ type Props = {
 	inertLetters: Array<LetterId>,
 	activeLetters: Array<LetterId>,
 	children: ReactNode,
-	pushLetter: (LetterId) => void,
-	popLetter: (LetterId) => void,
-	checkWord: (string) => void,
+	pushLetter: (id: LetterId) => void,
+	popLetter: (id: LetterId) => void,
+	checkWord: (word: string) => void,
 	shuffleLetters: (Array<LetterId>) => void
 };
 
 class Keyboard extends React.Component<Props> {
 	bindGlyphs: () => void;
 	bindBackspace: () => void;
-	unbindGlyphs: (LettersById) => void;
+	unbindGlyphs: (letters: LettersById) => void;
 	checkWord: () => void;
 
 	constructor(props: Props) {

@@ -1,9 +1,15 @@
+// @flow
 import React from "react";
 import PropTypes from "prop-types";
 
-const WordLetter = props => <span className="WordLetter" {...props} />
+const WordLetter = props => <span className="WordLetter" {...props} />;
 
-const Word = ({ answer, found }) =>
+type Props = {
+	answer: string,
+	found: boolean
+};
+
+const Word = ({ answer, found }: Props) =>
 	found ? (
 		<div className="Word">
 			{answer.split("").map((l, i) => <WordLetter key={i}>{l}</WordLetter>)}
@@ -13,9 +19,5 @@ const Word = ({ answer, found }) =>
 			{answer.split("").map((l, i) => <WordLetter key={i}>?</WordLetter>)}
 		</div>
 	);
-
-Word.propTypes = {
-	answer: PropTypes.string.isRequired
-};
 
 export default Word;
