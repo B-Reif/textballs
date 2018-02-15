@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { pushLetter, popLetter, shuffleLetters } from "../actions/letter";
 import { checkWord } from "../actions/word";
 
-function mapStateToProps(state, ownProps) {
-	return { ...state.letters, ...ownProps };
+function mapStateToProps(state) {
+	return { ...state.letters };
 }
 
 export default connect(mapStateToProps, {
