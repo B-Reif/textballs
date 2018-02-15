@@ -5,13 +5,12 @@ type Props = {
 	glyph: string,
 	style: {},
 	active: boolean,
-	pushLetter: Function,
-	popLetter: Function,
+	pushLetter: () => void,
+	popLetter: () => void
 };
 
 class Letter extends React.Component<Props> {
-
-	toggleActive: Function
+	toggleActive: Function;
 
 	constructor(props: Props) {
 		super(props);
@@ -20,13 +19,17 @@ class Letter extends React.Component<Props> {
 
 	toggleActive() {
 		const { active, pushLetter, popLetter } = this.props;
-		if (active) return popLetter();
-		return pushLetter();
+		const toggle = active ? popLetter : pushLetter;
+		toggle();
 	}
 
 	render() {
 		const { style, glyph } = this.props;
-		return <span onClick={this.toggleActive} style={style} className="Letter">{glyph}</span>
+		return (
+			<span onClick={this.toggleActive} style={style} className="Letter">
+				{glyph}
+			</span>
+		);
 	}
 }
 
