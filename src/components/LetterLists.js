@@ -1,6 +1,5 @@
 // @flow
 import React from "react";
-import PropTypes from "prop-types";
 import LetterContainer from "../containers/LetterContainer";
 import { Motion, spring as baseSpring } from "react-motion";
 import type { Node } from "react";

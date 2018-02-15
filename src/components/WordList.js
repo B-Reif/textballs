@@ -1,6 +1,5 @@
 // @flow
 import React from "react";
-import PropTypes from "prop-types";
 import Word from "./Word";
 import type { WordFoundMap } from "../types";
 

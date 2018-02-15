@@ -2,12 +2,7 @@
 import React from "react";
 import WordList from "./WordList";
 import LetterLists from "./LetterLists";
-import type {
-	LetterId,
-	LettersById,
-	LetterGlyph,
-	WordFoundMap
-} from "../types";
+import type { LetterId, LettersById, WordFoundMap } from "../types";
 
 type ShuffleButtonProps = {
 	inertLetters: Array<LetterId>,
