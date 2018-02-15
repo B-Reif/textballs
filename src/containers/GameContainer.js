@@ -8,7 +8,8 @@ import type { State } from "../types";
 function mapStateToProps(state: State) {
 	const { words } = state;
 	const { activeLetters, inertLetters, lettersById } = state.letters;
-	return { activeLetters, inertLetters, lettersById, words };
+	const guess = activeLetters.map(l => lettersById.glyph).join("");
+	return { activeLetters, inertLetters, lettersById, words, guess };
 }
 
 export default connect(mapStateToProps, { shuffleLetters, checkWord })(Game);

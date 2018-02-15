@@ -75,10 +75,4 @@ class LetterLists extends React.Component<Props> {
 	}
 }
 
-LetterLists.propTypes = {
-	lettersById: PropTypes.objectOf(PropTypes.object).isRequired,
-	inertLetters: PropTypes.arrayOf(PropTypes.string).isRequired,
-	activeLetters: PropTypes.arrayOf(PropTypes.string).isRequired
-};
-
 export default LetterLists;

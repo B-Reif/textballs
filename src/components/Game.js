@@ -9,15 +9,6 @@ import type {
 	WordFoundMap
 } from "../types";
 
-type GameProps = {
-	words: WordFoundMap,
-	lettersById: LettersById,
-	activeLetters: Array<LetterId>,
-	inertLetters: Array<LetterId>,
-	checkWord: string => void,
-	shuffleLetters: () => void
-};
-
 type ShuffleButtonProps = {
 	inertLetters: Array<LetterId>,
 	shuffleLetters: (Array<LetterId>) => void
@@ -30,28 +21,28 @@ const ShuffleButton = ({
 	<button onClick={() => shuffleLetters(inertLetters)}>Shuffle Balls</button>
 );
 
-type SubmitButtonProps = {
-	lettersById: LettersById,
-	activeLetters: Array<LetterId>,
+type SubmitProps = {
+	word: string,
 	checkWord: string => void
 };
 
-const SubmitButton = ({
-	lettersById,
-	activeLetters,
-	checkWord
-}: SubmitButtonProps) => {
-	const clickHandler = () => {
-		const activeGlyphs: Array<LetterGlyph> = activeLetters.map(
-			l => lettersById[l].glyph
-		);
-		checkWord(activeGlyphs.join(""));
-	};
-	return <button onClick={clickHandler}>Submit</button>;
+const SubmitButton = ({ word, checkWord }: SubmitProps) => (
+	<button onClick={() => checkWord(word)}>Submit</button>
+);
+
+type GameProps = {
+	guess: string,
+	words: WordFoundMap,
+	lettersById: LettersById,
+	activeLetters: Array<LetterId>,
+	inertLetters: Array<LetterId>,
+	checkWord: string => void,
+	shuffleLetters: () => void
 };
 
 const Game = (props: GameProps) => {
 	const {
+		guess,
 		words,
 		lettersById,
 		activeLetters,
@@ -67,11 +58,7 @@ const Game = (props: GameProps) => {
 				activeLetters={activeLetters}
 				inertLetters={inertLetters}
 			/>
-			<SubmitButton
-				lettersById={lettersById}
-				activeLetters={activeLetters}
-				checkWord={checkWord}
-			/>
+			<SubmitButton word={guess} checkWord={checkWord} />
 			<ShuffleButton
 				inertLetters={inertLetters}
 				shuffleLetters={shuffleLetters}
