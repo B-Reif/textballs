@@ -57,13 +57,13 @@ class LetterLists extends React.Component<Props> {
 
 	render() {
 		const { lettersById, inertLetters, activeLetters } = this.props;
-		const letters = Object.keys(lettersById);
-		const children = letters.map(id => {
-			const activeIndex = activeLetters.indexOf(id);
-			const listIndex =
-				activeIndex === -1 ? inertLetters.indexOf(id) : activeIndex;
-			return this.renderLetter(id, listIndex, activeIndex !== -1);
-		});
+		const inertChildren = inertLetters.map((id, index) =>
+			this.renderLetter(id, index, false)
+		);
+		const activeChildren = activeLetters.map((id, index) =>
+			this.renderLetter(id, index, true)
+		);
+		const children = inertChildren.concat(activeChildren);
 		return (
 			<div className="LetterLists">
 				{children}
