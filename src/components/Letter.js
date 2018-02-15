@@ -10,7 +10,7 @@ type Props = {
 };
 
 class Letter extends React.Component<Props> {
-	toggleActive: Function;
+	toggleActive: () => void;
 
 	constructor(props: Props) {
 		super(props);

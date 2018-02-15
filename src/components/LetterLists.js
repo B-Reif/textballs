@@ -3,11 +3,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import LetterContainer from "../containers/LetterContainer";
 import { Motion, spring as baseSpring } from "react-motion";
+import type { Node } from "react";
 import type { LettersById, LetterId } from "../types";
 
-const spring = val => baseSpring(val, {
-	stiffness: 260, damping: 20
-})
+const spring = val =>
+	baseSpring(val, {
+		stiffness: 260,
+		damping: 20
+	});
 
 type Props = {
 	lettersById: LettersById,
@@ -22,7 +25,7 @@ const layout = (index, active) => {
 };
 
 class LetterLists extends React.Component<Props> {
-	renderLetter: Function
+	renderLetter: (id: string, index: number, active: boolean) => Node;
 
 	constructor(props: Props) {
 		super(props);
