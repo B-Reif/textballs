@@ -1,6 +1,8 @@
 // @flow
 import React from "react";
-import WordList from "./WordList";
+import MediaQuery from "react-responsive";
+import WordListContainer from "../containers/WordListContainer";
+import WordListSmallContainer from "../containers/WordListSmallContainer";
 import LetterLists from "./LetterLists";
 import type { LetterId, LettersById, WordFoundMap } from "../types";
 
@@ -38,7 +40,6 @@ type GameProps = {
 const Game = (props: GameProps) => {
 	const {
 		guess,
-		words,
 		lettersById,
 		activeLetters,
 		inertLetters,
@@ -47,7 +48,12 @@ const Game = (props: GameProps) => {
 	} = props;
 	return (
 		<div className="Game">
-			<WordList words={words} />
+			<MediaQuery maxDeviceWidth={600}>
+				<WordListSmallContainer />
+			</MediaQuery>
+			<MediaQuery minDeviceWidth={601}>
+				<WordListContainer />
+			</MediaQuery>
 			<LetterLists
 				lettersById={lettersById}
 				activeLetters={activeLetters}

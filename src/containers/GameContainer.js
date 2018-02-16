@@ -7,10 +7,9 @@ import { checkWord } from "../actions/word";
 import type { State } from "../types";
 
 function mapStateToProps(state: State) {
-	const { words } = state;
 	const { activeLetters, inertLetters, lettersById } = state.letters;
 	const guess = getGuess(state);
-	return { activeLetters, inertLetters, lettersById, words, guess };
+	return { activeLetters, inertLetters, lettersById, guess };
 }
 
 export default connect(mapStateToProps, { shuffleLetters, checkWord })(Game);
