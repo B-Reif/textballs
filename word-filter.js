@@ -57,13 +57,12 @@ function filterWords(words) {
 	return words.filter(w => !profanityFilter.analyzeBlob(w).failed);
 }
 
-
 const filteredGameWords = filterWords(gameWords);
-const filteredLongWords = filterWords(longWords);
+const filteredLongWords = filterWords(longWords).filter(w => w.match(/^[A-Za-z]+$/));
 
 function gameFromWord(word) {
 	const permutations = deepPermute(word);
-	const words = permutations.filter(p => filteredGameWords.includes(p));
+	const words = permutations.filter(p => filteredGameWords.includes(p);
 	return words;
 }
 
