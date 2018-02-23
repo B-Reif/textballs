@@ -2,12 +2,12 @@
 import { connect } from "react-redux";
 import WordListSmall from "../components/WordListSmall";
 import { getWordsFoundByLength } from "../selectors";
-import type { State } from "../types";
+import type { State, WordsFoundByLengthMap } from "../types";
 
-function mapStateToProps(state: State) {
-	return {
-		words: getWordsFoundByLength(state)
-	};
+type Props = { words: WordsFoundByLengthMap };
+
+function mapStateToProps(state: State): Props {
+	return { words: getWordsFoundByLength(state) };
 }
 
 export default connect(mapStateToProps)(WordListSmall);

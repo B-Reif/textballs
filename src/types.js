@@ -31,10 +31,17 @@ export type WordFoundMap = {
 	[word: Word]: boolean
 };
 
+export type WordsFoundByLengthMap = {
+	[length: number]: {
+		found: number,
+		total: number
+	}
+};
+
 export type State = {
 	words: WordFoundMap,
 	letters: LettersSet
-}
+};
 
 // ============
 // ACTION TYPES
@@ -43,10 +50,22 @@ export type State = {
 type BaseAction<T, P> = { type: T, payload: P };
 
 // Letter actions
-export type InitLettersAction = BaseAction<typeof actionTypes.INIT_LETTERS, Array<LetterGlyph>>;
-export type PushLetterAction = BaseAction<typeof actionTypes.PUSH_LETTER, LetterId>;
-export type PopLetterAction = BaseAction<typeof actionTypes.POP_LETTER, LetterId>;
-export type ShuffleLettersAction = BaseAction<typeof actionTypes.SHUFFLE_LETTERS, Array<LetterId>>;
+export type InitLettersAction = BaseAction<
+	typeof actionTypes.INIT_LETTERS,
+	Array<LetterGlyph>
+>;
+export type PushLetterAction = BaseAction<
+	typeof actionTypes.PUSH_LETTER,
+	LetterId
+>;
+export type PopLetterAction = BaseAction<
+	typeof actionTypes.POP_LETTER,
+	LetterId
+>;
+export type ShuffleLettersAction = BaseAction<
+	typeof actionTypes.SHUFFLE_LETTERS,
+	Array<LetterId>
+>;
 
 type LetterAction =
 	| InitLettersAction
@@ -54,12 +73,13 @@ type LetterAction =
 	| PopLetterAction
 	| ShuffleLettersAction;
 
-export type InitWordsAction = BaseAction<typeof actionTypes.INIT_WORDS, Array<string>>;
+export type InitWordsAction = BaseAction<
+	typeof actionTypes.INIT_WORDS,
+	Array<string>
+>;
 export type CheckWordAction = BaseAction<typeof actionTypes.CHECK_WORD, string>;
 
-type WordAction =
-	| InitWordsAction
-	| CheckWordAction;
+type WordAction = InitWordsAction | CheckWordAction;
 
 type DefaultAction = BaseAction<null, null>;
 

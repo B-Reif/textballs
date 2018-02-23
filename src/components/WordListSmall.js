@@ -6,7 +6,7 @@ import type { WordFoundMap } from "../types";
 
 type Props = {
 	words: {
-		[wordLength: number]: {
+		[wordLength: string]: {
 			found: number,
 			total: number
 		}
@@ -20,7 +20,7 @@ const WordListSmall = ({ words }: Props) => {
 		return (
 			<div className="WordListSmallRow" key={length}>
 				<label>{label}</label>
-				<Word answer={"☆".repeat(length)} found={foundAll} />
+				<Word answer={"☆".repeat(parseInt(length))} found={foundAll} />
 			</div>
 		);
 	});

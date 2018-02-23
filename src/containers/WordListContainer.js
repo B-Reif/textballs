@@ -1,9 +1,11 @@
 // @flow
 import { connect } from "react-redux";
 import WordList from "../components/WordList";
-import type { State } from "../types";
+import type { State, WordFoundMap } from "../types";
 
-function mapStateToProps(state: State) {
+type Props = { words: WordFoundMap };
+
+function mapStateToProps(state: State): Props {
 	return { words: state.words };
 }
 
