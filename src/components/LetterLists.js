@@ -56,7 +56,7 @@ class LetterLists extends React.Component<Props> {
 	}
 
 	render() {
-		const { lettersById, inertLetters, activeLetters } = this.props;
+		const { inertLetters, activeLetters } = this.props;
 		const inertChildren = inertLetters.map((id, index) =>
 			this.renderLetter(id, index, false)
 		);

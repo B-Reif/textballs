@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import Mousetrap from "mousetrap";
-import { uniqBy } from "lodash";
+import uniqBy from "lodash/uniqBy";
 import type { Node as ReactNode } from "react";
 import type { Letter, LettersById, LetterId, LetterGlyph } from "../types";
 

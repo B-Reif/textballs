@@ -2,8 +2,6 @@
 import React from "react";
 import Word from "./Word";
 
-import type { WordFoundMap } from "../types";
-
 type Props = {
 	words: {
 		[wordLength: string]: {
@@ -20,7 +18,7 @@ const WordListSmall = ({ words }: Props) => {
 		return (
 			<div className="WordListSmallRow" key={length}>
 				<label>{label}</label>
-				<Word answer={"☆".repeat(parseInt(length))} found={foundAll} />
+				<Word answer={"☆".repeat(parseInt(length, 10))} found={foundAll} />
 			</div>
 		);
 	});

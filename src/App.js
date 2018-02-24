@@ -7,7 +7,9 @@ import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import KeyboardContainer from "./containers/KeyboardContainer";
 import GameContainer from "./containers/GameContainer";
-import { sample, shuffle, random } from "lodash";
+import sample from "lodash/sample";
+import shuffle from "lodash/shuffle";
+import random from "lodash/random";
 
 const getGame = () => {
 	const gameFileIndex = random(0, 106);
@@ -28,7 +30,7 @@ const store = createStore(
 
 class App extends Component<{}> {
 	componentWillMount() {
-		const game = getGame().then(game => {
+		getGame().then(game => {
 			const key = game[game.length - 1];
 			const letters = shuffle(key.split(""));
 			store.dispatch(initLetters(letters));
