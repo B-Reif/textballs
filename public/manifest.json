@@ -1,6 +1,6 @@
 {
-	"short_name": "Textballs",
-	"name": "Textballs",
+	"short_name": "textballs",
+	"name": "textballs",
 	"icons": [
 		{
 			"src": "favicon.ico",
@@ -11,5 +11,7 @@
 	"start_url": "./index.html",
 	"display": "standalone",
 	"theme_color": "#3ea8dd",
-	"background_color": "#ffffff"
+	"background_color": "#ffffff",
+	"manifest_version": 0,
+	"version": "1.0"
 }
