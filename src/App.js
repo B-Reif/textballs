@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from "react";
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import logger from "redux-logger";
+import initialState from "./initialState";
 import { initLetters } from "./actions/letter";
 import { initWords } from "./actions/word";
 import { Provider } from "react-redux";
@@ -23,9 +25,11 @@ const getGame = () => {
 	);
 };
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
 	rootReducer,
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	initialState,
+	composeEnhancers(applyMiddleware(logger))
 );
 
 class App extends Component<{}> {
