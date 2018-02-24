@@ -10,7 +10,7 @@ export const getGuess = createSelector(
 	getActiveLetters,
 	getLettersById,
 	(activeLetters, lettersById) =>
-		activeLetters.map(l => lettersById.glyph).join("")
+		activeLetters.map(l => lettersById[l].glyph).join("")
 );
 
 export const getWordsFoundByLength = createSelector(getWords, words => {
